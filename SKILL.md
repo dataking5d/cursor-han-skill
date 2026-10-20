@@ -133,15 +133,13 @@ argv.json            ~/.cursor/argv.json  -> locale
 
 开源地址：**https://github.com/dataking5d/cursor-han-skill**
 
-**本仓库工作副本就是唯一源**：
+**本目录本身就是唯一源**（自带 .git 的独立仓库，已被 `D:\.claude\.gitignore` 排除，
+外层仓库不追踪它）：
 
 ```
-D:\all_my_projects\cursor-han-skill\      ← 唯一源（git 仓库，直接编辑这里）
-        ↑
-        │ junction
-D:\.claude\skills\cursor-han\             ← 数据源目录（指向工作副本）
-        ↑
-        │ junction
+D:\.claude\skills\cursor-han\        <- 唯一源（git 仓库，直接编辑这里）
+        ^
+        | junction
 C:\Users\Lenovo\.codex\skills\cursor-han
 C:\Users\Lenovo\.cursor\skills\cursor-han
 C:\Users\Lenovo\.agents\skills\cursor-han
@@ -152,9 +150,8 @@ C:\Users\Lenovo\DoubaoWork\skills\cursor-han
 改完直接提交推送即可，各 agent 自动同步：
 
 ```powershell
-cd D:\all_my_projects\cursor-han-skill
+cd D:\.claude\skills\cursor-han
 git add -A; git commit -m "..."; git push
 ```
 
 注意 `vendor/`（第三方汉化组件）已被 `.gitignore` 排除，运行时自动下载。
-
