@@ -1,13 +1,18 @@
 @echo off
+rem ==========================================================
+rem   Cursor Hanhua Assistant (Windows)
+rem   NOTE: this file intentionally contains ASCII only.
+rem   All Chinese messages are printed by the Python script,
+rem   which handles UTF-8 correctly on every console.
+rem ==========================================================
 chcp 65001 >nul 2>&1
 setlocal EnableExtensions EnableDelayedExpansion
-title Cursor 汉化助手
-
+title Cursor Hanhua Assistant
 cd /d "%~dp0"
 
 echo.
 echo ==========================================================
-echo            Cursor 汉化助手
+echo             Cursor Hanhua Assistant
 echo ==========================================================
 echo.
 
@@ -17,29 +22,29 @@ if not defined PY (
     where python >nul 2>&1 && set "PY=python"
 )
 if not defined PY (
-    echo   [失败] 没有找到 Python。
+    echo   [FAILED] Python was not found.
     echo.
-    echo   请先安装 Python 3.8 或更高版本：
+    echo   Please install Python 3.8 or newer from:
     echo     https://www.python.org/downloads/
     echo.
-    echo   安装时记得勾选 "Add Python to PATH"，装完后重新运行本文件。
+    echo   IMPORTANT: tick "Add Python to PATH" during setup,
+    echo   then close and reopen this window.
     echo.
     pause
     exit /b 1
 )
 
-echo   使用 %PY% 执行汉化...
+echo   Running with %PY% ...
 echo.
-
 %PY% scripts\cursor_han.py
 set "RC=%ERRORLEVEL%"
 
 echo.
 if "%RC%"=="0" (
-    echo   全部搞定！现在请完全退出 Cursor 再重新打开。
+    echo   All done! Now QUIT Cursor completely, then open it again.
 ) else (
-    echo   汉化过程中有问题，请把上面的信息发给别人帮忙看看。
-    echo   日志在: %LOCALAPPDATA%\cursor-han\cursor-han.log
+    echo   Something went wrong. Please share the output above.
+    echo   Log: %LOCALAPPDATA%\cursor-han\cursor-han.log
 )
 echo.
 pause

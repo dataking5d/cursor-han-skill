@@ -128,3 +128,18 @@ argv.json            ~/.cursor/argv.json  -> locale
 - 界面词典组件由 [vibepm666/cursor-localization-zh](https://github.com/vibepm666/cursor-localization-zh)
   （作者 VibeP.net）提供，**运行时下载调用、不做二次分发**，著作权归原作者。
 - 官方语言包 `ms-ceintl.vscode-language-pack-zh-hans` © Microsoft Corporation。
+
+## 本 skill 的上游仓库
+
+开源地址：**https://github.com/dataking5d/cursor-han-skill**
+
+本机安装位置：`D:\.claude\skills\cursor-han\`（数据源唯一，见 `D:\.claude\skills\SKILLS.md`）
+git 工作副本：`D:\all_my_projects\cursor-han-skill\`
+
+改完本 skill 后，把改动同步到 git 工作副本再推送：
+
+```powershell
+robocopy D:\.claude\skills\cursor-han D:\all_my_projects\cursor-han-skill /E /XD vendor __pycache__ .git /XF "*.log"
+cd D:\all_my_projects\cursor-han-skill; git add -A; git commit -m "..."; git push
+```
+

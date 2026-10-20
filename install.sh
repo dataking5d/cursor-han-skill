@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
-# Cursor 汉化助手 —— macOS / Linux
+# Cursor Hanhua Assistant (macOS / Linux)
+# NOTE: ASCII only on purpose. All Chinese messages come from the
+# Python script, which handles UTF-8 correctly everywhere.
 set -u
 cd "$(dirname "$0")" || exit 1
 
 echo
 echo "=========================================================="
-echo "            Cursor 汉化助手"
+echo "             Cursor Hanhua Assistant"
 echo "=========================================================="
 echo
 
@@ -15,24 +17,25 @@ for c in python3 python; do
 done
 
 if [ -z "$PY" ]; then
-    echo "  [失败] 没有找到 Python。"
+    echo "  [FAILED] Python was not found."
     echo
-    echo "  macOS 可以用:  brew install python   或   python3.org/downloads"
-    echo "  Ubuntu/Debian: sudo apt install python3"
+    echo "  macOS :  brew install python   (or https://www.python.org/downloads/)"
+    echo "  Debian: sudo apt install python3"
     echo
     exit 1
 fi
 
-echo "  使用 $PY 执行汉化..."
+echo "  Running with $PY ..."
 echo
 "$PY" scripts/cursor_han.py
 RC=$?
 
 echo
 if [ "$RC" -eq 0 ]; then
-    echo "  全部搞定！现在请完全退出 Cursor 再重新打开。"
+    echo "  All done! Now QUIT Cursor completely, then open it again."
 else
-    echo "  汉化过程中有问题，日志在: ${TMPDIR:-/tmp}/cursor-han/cursor-han.log"
+    echo "  Something went wrong. Please share the output above."
+    echo "  Log: ${TMPDIR:-/tmp}/cursor-han/cursor-han.log"
 fi
 echo
 exit $RC

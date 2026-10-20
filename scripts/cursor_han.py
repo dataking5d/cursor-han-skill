@@ -37,10 +37,38 @@ from datetime import datetime
 # 基本设置
 # --------------------------------------------------------------------------- #
 
-try:
-    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-except Exception:
-    pass
+def _setup_output():
+    """让中文在各种控制台里都能正常显示。
+
+    - 中文 Windows 的 cmd 是 GBK(936)：原生编码就能显示中文，保持不动最稳
+    - 英文 Windows 的 cmd 是 437/1252：显示不了中文 -> 把控制台切成 UTF-8 再输出
+    - 重定向到管道/文件：沿用当前编码；日志文件另外强制用 UTF-8
+    """
+    enc = getattr(sys.stdout, "encoding", None) or "utf-8"
+    if os.name == "nt":
+        try:
+            "中文".encode(enc)
+            can = True
+        except Exception:
+            can = False
+        if not can:
+            # 当前编码显示不了中文（英文版 Windows 的 437/1252）
+            try:
+                import ctypes
+
+                # 有控制台就把它切到 UTF-8；没有控制台（输出被重定向）这步会失败，
+                # 此时直接用 UTF-8 写文件/管道
+                ctypes.windll.kernel32.SetConsoleOutputCP(65001)
+            except Exception:
+                pass
+            enc = "utf-8"
+    try:
+        sys.stdout.reconfigure(encoding=enc, errors="replace")
+    except Exception:
+        pass
+
+
+_setup_output()
 
 VERSION = "2.0.0"
 
