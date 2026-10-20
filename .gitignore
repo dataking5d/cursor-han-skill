@@ -1,0 +1,18 @@
+# 运行时自动下载的第三方汉化组件（含其词典与官方语言包）
+# 不随本仓库分发，见 README 的"致谢与许可"
+vendor/
+
+# Python
+__pycache__/
+*.py[cod]
+
+# 工具产物
+*.log
+nls.messages.json.en-base.json
+nls.messages.json.han-stamp.json
+
+# 编辑器 / 系统
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
