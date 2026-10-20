@@ -129,17 +129,32 @@ argv.json            ~/.cursor/argv.json  -> locale
   （作者 VibeP.net）提供，**运行时下载调用、不做二次分发**，著作权归原作者。
 - 官方语言包 `ms-ceintl.vscode-language-pack-zh-hans` © Microsoft Corporation。
 
-## 本 skill 的上游仓库
+## 本 skill 的上游仓库与目录关系
 
 开源地址：**https://github.com/dataking5d/cursor-han-skill**
 
-本机安装位置：`D:\.claude\skills\cursor-han\`（数据源唯一，见 `D:\.claude\skills\SKILLS.md`）
-git 工作副本：`D:\all_my_projects\cursor-han-skill\`
+**本仓库工作副本就是唯一源**：
 
-改完本 skill 后，把改动同步到 git 工作副本再推送：
+```
+D:\all_my_projects\cursor-han-skill\      ← 唯一源（git 仓库，直接编辑这里）
+        ↑
+        │ junction
+D:\.claude\skills\cursor-han\             ← 数据源目录（指向工作副本）
+        ↑
+        │ junction
+C:\Users\Lenovo\.codex\skills\cursor-han
+C:\Users\Lenovo\.cursor\skills\cursor-han
+C:\Users\Lenovo\.agents\skills\cursor-han
+C:\Users\Lenovo\Doubao\skills\cursor-han
+C:\Users\Lenovo\DoubaoWork\skills\cursor-han
+```
+
+改完直接提交推送即可，各 agent 自动同步：
 
 ```powershell
-robocopy D:\.claude\skills\cursor-han D:\all_my_projects\cursor-han-skill /E /XD vendor __pycache__ .git /XF "*.log"
-cd D:\all_my_projects\cursor-han-skill; git add -A; git commit -m "..."; git push
+cd D:\all_my_projects\cursor-han-skill
+git add -A; git commit -m "..."; git push
 ```
+
+注意 `vendor/`（第三方汉化组件）已被 `.gitignore` 排除，运行时自动下载。
 
